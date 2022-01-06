@@ -10,7 +10,7 @@ license = "GPL-3.0-or-later"
 ssh-agent = ["thrussh-agent", "thrussh-encoding"]
 
 [patch.crates-io]
-thrussh-encoding = { git = "https://github.com/FintanH/thrussh.git", branch = "generic-agent" , optional = true }
+thrussh-encoding = { git = "https://github.com/erak/thrussh.git", branch = "generic-agent" , optional = true }
 
 [dependencies]
 async-trait = "0.1"
@@ -21,12 +21,13 @@ generic-array = { version = "0.14", features = ["serde"] }
 lazy_static = "1"
 rand = "0.8.4"
 rpassword = "4.0"
+scanpw = "0.1.0"
 secstr = "0.3"
 serde = { version = "1.0", features = ["derive"] }
 serde_cbor = "0.10"
 thiserror = "1.0"
-thrussh-agent = { git = "https://github.com/FintanH/thrussh.git", branch = "generic-agent" , optional = true, default-features = false }
-thrussh-encoding = { git = "https://github.com/FintanH/thrussh.git", branch = "generic-agent" , optional = true }
+thrussh-agent = { git = "https://github.com/erak/thrussh.git", branch = "generic-agent" , optional = true, default-features = false }
+thrussh-encoding = { git = "https://github.com/erak/thrussh.git", branch = "generic-agent" , optional = true }
 
 # CRYPTO
 #
@@ -54,4 +55,4 @@ rand = { version = "0.8.4", default-features = false }
 smol = { version = "1.2" }
 sodiumoxide = "0.2"
 tempfile = "3"
-thrussh-agent = { git = "https://github.com/FintanH/thrussh.git", branch = "generic-agent" , features = [ "smol-agent" ], default-features = false }
+thrussh-agent = { git = "https://github.com/erak/thrussh.git", branch = "generic-agent" , features = [ "smol-agent" ], default-features = false }

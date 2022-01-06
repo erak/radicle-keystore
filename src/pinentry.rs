@@ -39,7 +39,7 @@ impl Pinentry for SecUtf8 {
     }
 }
 
-/// [`Pinentry`] which prompts the user on the TTY
+/// [`Pinentry`] which prompts the user on the TTY when password is needed.
 pub struct Prompt<'a>(&'a str);
 
 impl<'a> Prompt<'a> {
@@ -53,5 +53,26 @@ impl<'a> Pinentry for Prompt<'a> {
 
     fn get_passphrase(&self) -> Result<SecUtf8, Self::Error> {
         read_password_from_tty(Some(self.0)).map(SecUtf8::from)
+    }
+}
+
+/// [`Pinentry`] which prompts the user on the TTY when created.
+#[derive(Clone)]
+pub struct CachedPrompt(SecUtf8);
+
+impl CachedPrompt {
+    pub fn new(prompt: &str) -> Result<Self, <CachedPrompt as Pinentry>::Error> {
+        match read_password_from_tty(Some(prompt)).map(SecUtf8::from) {
+            Ok(password) => Ok(Self(password)),
+            Err(err) => Err(err),
+        }
+    }
+}
+
+impl Pinentry for CachedPrompt {
+    type Error = io::Error;
+
+    fn get_passphrase(&self) -> Result<SecUtf8, Self::Error> {
+        Ok(self.0.clone())
     }
 }
